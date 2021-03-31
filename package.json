@@ -1,0 +1,10 @@
+{
+  "name": "iot-final",
+  "version": "1.0.0",
+  "description": "<br>",
+  "scripts": {
+    "install": "npm i --prefix mqtt && npm i --prefix client"
+  },
+  "author": "",
+  "license": "ISC"
+}
