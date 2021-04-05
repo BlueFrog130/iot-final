@@ -48,9 +48,21 @@ function main() {
                     timestamp: firebase.firestore.Timestamp.now(),
                     ...baseData
                 };
-                const doc = firebase.firestore().collection("temp").doc();
-                await doc.set(data);
-                info(`Wrote data to ${doc.id}`);
+                const time = data.timestamp.toDate();
+                const start = new Date();
+                start.setHours(19);
+                start.setMinutes(0);
+                start.setMilliseconds(0);
+
+                const end = new Date();
+                end.setHours(21);
+                end.setMinutes(0);
+                end.setMilliseconds(0);
+                if(time >= start && time <= end) {
+                    const doc = firebase.firestore().collection("temp").doc();
+                    await doc.set(data);
+                    info(`Wrote data to ${doc.id}`);
+                }
             }
             catch(err) {
                 warn("Invalid data recieved")
