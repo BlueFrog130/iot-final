@@ -14,6 +14,16 @@ interface BaseData {
 
 interface Data extends BaseData {
     timestamp: firebase.firestore.Timestamp
+    day: number
+}
+
+const day0 = new Date("04/05/2021").getDay() - 1;
+
+async function update() {
+    const docs = await firebase.firestore().collection("temp").get();
+    docs.forEach(doc => {
+        doc.ref.update("day", (doc.data()["timestamp"] as firebase.firestore.Timestamp).toDate().getDay() - day0);
+    });
 }
 
 function main() {
@@ -46,6 +56,7 @@ function main() {
 
                 const data: Data = {
                     timestamp: firebase.firestore.Timestamp.now(),
+                    day: firebase.firestore.Timestamp.now().toDate().getDay() - day0,
                     ...baseData
                 };
                 const time = data.timestamp.toDate();
@@ -59,9 +70,13 @@ function main() {
                 end.setMinutes(0);
                 end.setMilliseconds(0);
                 if(time >= start && time <= end) {
-                    const doc = firebase.firestore().collection("temp").doc();
+                    const name = data.timestamp.seconds;
+                    const doc = firebase.firestore().collection("temp").doc(name.toString());
                     await doc.set(data);
                     info(`Wrote data to ${doc.id}`);
+                }
+                else {
+                    warn("Time out of bounds");
                 }
             }
             catch(err) {
@@ -72,15 +87,16 @@ function main() {
 }
 
 function warn(msg: string) {
-    console.warn(`[${colors.yellow("WARN")}] ${msg}`);
+    console.warn(`[${colors.yellow("WARN")}] [${colors.yellow(new Date().toLocaleTimeString(undefined, { hour12: false }))}] ${msg}`);
 }
 
 function error(msg: string) {
-    console.error(`[${colors.red("WARN")}] ${msg}`);
+    console.error(`[${colors.red("WARN")}] [${colors.red(new Date().toLocaleTimeString(undefined, { hour12: false }))}] ${msg}`);
 }
 
 function info(msg: string) {
-    console.log(`[${colors.green("INFO")}] ${msg}`);
+    console.log(`[${colors.green("INFO")}] [${colors.green(new Date().toLocaleTimeString(undefined, { hour12: false }))}] ${msg}`);
 }
 
+update();
 main();
