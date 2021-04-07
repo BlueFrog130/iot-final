@@ -6,5 +6,6 @@
     "install": "npm i --prefix mqtt && npm i --prefix client"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }
