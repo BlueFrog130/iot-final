@@ -7,9 +7,14 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.0.5"
+    "@mdi/js": "^5.9.55",
+    "chart.js": "^3.0.2",
+    "firebase": "^8.3.2",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.6"
   },
   "devDependencies": {
+    "@types/json2csv": "^5.0.1",
     "@vitejs/plugin-vue": "^1.2.1",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typescript-plugin-vue": "^0.6.3",

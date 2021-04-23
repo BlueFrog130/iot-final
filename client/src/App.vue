@@ -1,21 +1,13 @@
 <template>
-    <main class="bg-grey-800">
-
+    <main class="h-full w-full">
+        <router-view />
     </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue"
 
 export default defineComponent({
-    name: 'App'
+    name: "App"
 })
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>

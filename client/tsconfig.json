@@ -11,7 +11,7 @@
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
     "plugins": [
-      { "name": "typescript-plugin-vue" }
+      { "name": "@vuedx/typescript-plugin-vue" }
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]

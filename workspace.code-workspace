@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "client"
+		},
+		{
+			"path": "mqtt"
+		},
+		{
+			"path": "esp32"
+		},
+		{
+			"path": "functions"
+		}
+	],
+    "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "vetur.experimental.templateInterpolationService": true
+    }
+}

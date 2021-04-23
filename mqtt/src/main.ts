@@ -7,6 +7,8 @@ firebase.initializeApp({
     credential: firebase.credential.cert(serviceAccount as any)
 });
 
+const { Timestamp } = firebase.firestore;
+
 interface BaseData {
     temp: number;
     humidity: number;
@@ -18,13 +20,6 @@ interface Data extends BaseData {
 }
 
 const day0 = new Date("04/05/2021").getDay() - 1;
-
-async function update() {
-    const docs = await firebase.firestore().collection("temp").get();
-    docs.forEach(doc => {
-        doc.ref.update("day", (doc.data()["timestamp"] as firebase.firestore.Timestamp).toDate().getDay() - day0);
-    });
-}
 
 function main() {
     const client = mqtt.connect("mqtt://localhost");
@@ -55,8 +50,8 @@ function main() {
                     throw new Error();
 
                 const data: Data = {
-                    timestamp: firebase.firestore.Timestamp.now(),
-                    day: firebase.firestore.Timestamp.now().toDate().getDay() - day0,
+                    timestamp: Timestamp.now(),
+                    day: Timestamp.now().toDate().getDay() - day0,
                     ...baseData
                 };
                 const time = data.timestamp.toDate();
@@ -71,12 +66,11 @@ function main() {
                 end.setMilliseconds(0);
                 if(time >= start && time <= end) {
                     const name = data.timestamp.seconds;
-                    const doc = firebase.firestore().collection("temp").doc(name.toString());
-                    await doc.set(data);
-                    info(`Wrote data to ${doc.id}`);
+                    await firebase.firestore().collection("temp").doc(name.toString()).set(data);
+                    info(`Wrote data to ${name}`);
                 }
                 else {
-                    warn("Time out of bounds");
+                    info("Time out of bounds");
                 }
             }
             catch(err) {
@@ -98,5 +92,4 @@ function info(msg: string) {
     console.log(`[${colors.green("INFO")}] [${colors.green(new Date().toLocaleTimeString(undefined, { hour12: false }))}] ${msg}`);
 }
 
-update();
 main();
