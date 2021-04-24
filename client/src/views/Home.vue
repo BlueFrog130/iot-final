@@ -52,11 +52,13 @@ export default defineComponent({
             const collection = await firebase.firestore().collection("temp").get();
             const data = collection.docs.map(d => d.data());
             const formatted = data.map(({ timestamp, day, humidity, temp }) => {
+                const tz = new Date((timestamp.toDate() as Date).toLocaleString(undefined, { timeZone: "America/Chicago" }));
+                const str = `${tz.getMonth() + 1}/${tz.getDate()}/${tz.getFullYear()} ${tz.toLocaleTimeString(undefined, { hour12: false })}`;
                 return {
                     day,
                     temp,
                     humidity,
-                    time: timestamp.toDate().toLocaleTimeString(undefined, { hour12: false, timeZone: "America/Chicago" })
+                    time: str
                 }
             });
             formatted.unshift({
