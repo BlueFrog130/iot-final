@@ -6,16 +6,16 @@
 
 Directory housing the local MQTT subscriber on the `temp` topic. This subscriber will update the firestore database with the temperature data.
 
-### Installation
+#### Installation
 
 To run the MQTT client, a MQTT server needs to be installed on the local machine. For example, installing [mosquitto](https://mosquitto.org/) on a Raspbeery Pi.
 
-Navigate to the `client` directory and run the following:
+Navigate to the `mqtt` directory and run the following:
 ```
 npm install
 ```
 
-### Starting the client
+#### Starting the MQTT Client
 ```
 npm run start
 ```
