@@ -1,4 +1,4 @@
-# IoT 492 Final
+# IoT Final
 ### By Adam Grady & Supriti Ghosh
 <br>
 
